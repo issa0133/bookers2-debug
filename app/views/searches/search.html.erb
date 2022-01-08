@@ -1,42 +1,40 @@
-<div class='container px-5 px-sm-0'>
-  <h1>Books search for "<%= @word %>"</h1>
+<div class='container'>
+  <h1><%= @range %> search for "<%= @word %>"</h1>
   <table class="table">
     <% if @range == "User" %>
-    <thead>
-      <tr>
-        <th>image</th>
-        <th>name</th>
-        <th></th>
-      </tr>
-    </thead>
-    <% else %>
-     <thead>
-      <tr>
-        <th></th>
-        <th>title</th>
-        <th>body</th>
-      </tr>
-    </thead>
-    <% end %>
-    <% if @range == "User" %>
-    <tbody>
-      <% @users.each do |user| %>
+      <thead>
         <tr>
-          <th><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></th>
-          <th><%= user.name %></th>
+          <th>image</th>
+          <th>name</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <th><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></th>
+            <th><%= user.name %></th>
+            <th><%= link_to 'Show', user_path(user), class: "user_#{user.id}" %></th>
+          </tr>
+        <% end %>
+      </tbody>
     <% else %>
-    <tbody>
-      <% @books.each do |book| %>
+      <thead>
         <tr>
-          <th><%= attachment_image_tag(bookuser, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></th>
-          <th><%= book.title %></th>
-          <th><%= book.text %></th>
+          <th></th>
+          <th>title</th>
+          <th>opinion</th>
         </tr>
-      <% end %>
-    </tbody>
+      </thead>
+      <tbody>
+        <% @books.each do |book| %>
+          <tr>
+            <th><%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></th>
+            <th><%= book.title %></th>
+            <th><%= book.body %></th>
+          </tr>
+        <% end %>
+      </tbody>
     <% end %>
   </table>
 </div>
